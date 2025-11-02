@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novely Gasis - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Novely</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-item active">Home</a></li>
+        <li><a href="#about" class="nav-item">About</a></li>
+        <li><a href="#skills" class="nav-item">Skills</a></li>
+        <li><a href="#projects" class="nav-item">Projects</a></li>
+        <li><a href="#contact" class="nav-item">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-toggle">🌙</button>
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <img src="image.jpg" alt="Novely Gasis" class="profile-pic" />
+    <h1>Novely Gasis</h1>
+    <p class="typewriter">Aspiring Web Developer / Data Encoder</p>
+    <a href="#projects" class="btn">View Projects</a>
+  </section>
+
+  <section id="about" class="reveal">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <div class="about-extra">
+        <p>I am a **BS Computer Science graduate** with a passion for front-end web development and precise data management. I enjoy creating responsive, user-friendly web applications and value accuracy, creativity, and teamwork in every task I perform.</p>
+        <p>My goal is to obtain an entry-level position as a Web Developer or Data Encoder where I can apply my technical knowledge, analytical thinking, and attention to detail to contribute to organizational efficiency and growth.</p>
+      </div>
+      <hr>
+      <h3>🎓 Education & Experience</h3>
+      <div class="job">
+        <h4>Bachelor of Science in Computer Science</h4>
+        <p>Capiz State University — Graduating July 2025</p>
+        <p>🏆 **Award:** Most Frequent Library User (2023)</p>
+      </div>
+      <div class="job">
+        <h4>On-the-Job Trainee — Social Security System (SSS) <span>Mar 2025 – May 2025</span></h4>
+        <ul>
+          <li>Completed 200 hours of on-the-job training at SSS Roxas Branch.</li>
+          <li>Encoded and processed new member data for SSS number issuance.</li>
+          <li>Ensured data accuracy and confidentiality in documentation.</li>
+          <li>Assisted in clerical and administrative operations.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <h2>Skills & Expertise</h2>
+    <h3>⚙️ Technical Skills</h3>
+    <div class="skills-grid">
+      <span class="skill-tag">HTML5 (90%)</span>
+      <span class="skill-tag">CSS3 (85%)</span>
+      <span class="skill-tag">JavaScript (80%)</span>
+      <span class="skill-tag">Firebase (70%)</span>
+      <span class="skill-tag">MySQL (75%)</span>
+      <span class="skill-tag">Git (80%)</span>
+      <span class="skill-tag">GitHub (85%)</span>
+    </div>
+    <h3>🤝 Soft Skills</h3>
+    <div class="skills-grid">
+      <span class="skill-tag">Attention to Detail</span>
+      <span class="skill-tag">Problem Solving</span>
+      <span class="skill-tag">Adaptability</span>
+      <span class="skill-tag">Team Collaboration</span>
+      <span class="skill-tag">Filipino</span>
+      <span class="skill-tag">Hiligaynon</span>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <h2>My Projects</h2>
+    <div class="projects-grid">
+      
+      <div class="project-card">
+        <h4>Student Financial Assistance Recommender System</h4>
+        <div class="slider-container" id="project-slider-1">
+          <div class="slide fade"><img src="image1.jpg" alt="Recommender System Screenshot 1"></div>
+          <div class="slide fade"><img src="image2.jpg" alt="Recommender System Screenshot 2"></div>
+          <div class="slide fade"><img src="image3.jpg" alt="Recommender System Screenshot 3"></div>
+          <div class="slide fade"><img src="image4.jpg" alt="Recommender System Screenshot 4"></div>
+          <div class="slide fade"><img src="image5.jpg" alt="Recommender System Screenshot 5"></div>
+          <div class="slide fade"><img src="image6.jpg" alt="Recommender System Screenshot 6"></div>
+          <div class="slide fade"><img src="image7.jpg" alt="Recommender System Screenshot 7"></div>
+          
+          <button class="prev-btn" onclick="plusSlides(-1, 'project-slider-1')">❮</button>
+          <button class="next-btn" onclick="plusSlides(1, 'project-slider-1')">❯</button>
+          
+          <div class="dot-container">
+            </div>
+        </div>
+        <p>Developed an eligibility recommender using weighted ranking algorithms.</p>
+        <small>Tech Stack: HTML, CSS, JavaScript, MySQL</small>
+      </div>
+      
+      <div class="project-card">
+        <h4>Personal Portfolio Website</h4>
+        <div style="height: 150px; background: url('images.jpg') center/cover; margin-bottom: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; text-shadow: 0 0 5px rgba(0,0,0,0.8);">
+          
+        </div>
+        <p>Built with HTML, CSS, and JavaScript to showcase my projects and résumé.</p>
+        <small>Tech Stack: HTML, CSS, JavaScript</small><br>
+        <a href="https://novelygasis233-art.github.io/novelyportfolio/" target="_blank">View Live</a>
+      </div>
+      
+    </div>
+  </section>
+  
+  <footer id="contact">
+    <p>📧 <a href="mailto:novelya.gasis@gmail.com">novelya.gasis@gmail.com</a> | 📞 09159980930 | 📍 Pavia, Iloilo</p>
+    <p>🌐 <a href="https://github.com/novelygasis233-art" target="_blank">github.com/novelygasis233-art</a></p>
+    <p>&copy; <span id="year-footer"></span> Novely Gasis. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
