@@ -1,69 +1,118 @@
-// Live update fields
-const form = document.getElementById("resume-form");
+// --- EXISTING PORTFOLIO LOGIC ---
 
-form.addEventListener("input", () => {
-  const getVal = id => document.getElementById(id).value || "";
+// Theme Toggle
+const toggle = document.getElementById("theme-toggle");
+const body = document.body;
 
-  document.getElementById("preview-name").textContent = getVal("name");
-  document.getElementById("preview-title").textContent = getVal("title");
-  document.getElementById("preview-email").textContent = getVal("email");
-  document.getElementById("preview-phone").textContent = getVal("phone");
-  document.getElementById("preview-address").textContent = getVal("address");
-  document.getElementById("preview-linkedin").textContent = getVal("linkedin");
-  document.getElementById("preview-education").textContent = getVal("education");
-  document.getElementById("preview-objective").textContent = getVal("objective");
-  document.getElementById("preview-internship").textContent = getVal("internship");
-  document.getElementById("preview-projects").textContent = getVal("projects");
-  document.getElementById("preview-certifications").textContent = getVal("certifications");
-  document.getElementById("preview-activities").textContent = getVal("activities");
-  document.getElementById("preview-languages").textContent = getVal("languages");
+if (localStorage.getItem("theme") === "dark") {
+  body.classList.add("dark");
+  toggle.textContent = "☀️";
+}
 
-  const skills = getVal("skills").split(",").filter(s => s.trim());
-  const skillsList = document.getElementById("preview-skills");
-  skillsList.innerHTML = "";
-  skills.forEach(skill => {
-    const li = document.createElement("li");
-    li.textContent = skill.trim();
-    skillsList.appendChild(li);
+toggle.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  const theme = body.classList.contains("dark") ? "dark" : "light";
+  toggle.textContent = theme === "dark" ? "☀️" : "🌙";
+  localStorage.setItem("theme", theme);
+});
+
+// Mobile Menu Toggle
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
+
+// Smooth Scroll & Active Link
+document.querySelectorAll(".nav-item").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute("href"));
+    target.scrollIntoView({ behavior: "smooth" });
+    navLinks.classList.remove("show");
+    
+    document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+    link.classList.add("active");
   });
 });
 
-// Profile picture upload
-document.getElementById("profile-pic").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => document.getElementById("preview-pic").src = reader.result;
-    reader.readAsDataURL(file);
+// Reveal on Scroll
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(r => {
+    const top = r.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) r.classList.add("active");
+  });
+});
+
+// Footer Year
+document.getElementById("year-footer").textContent = new Date().getFullYear();
+
+
+// --- NEW IMAGE SLIDER LOGIC ---
+
+// Object to store the slide index for each slider on the page
+let slideIndex = {};
+
+// Function to initialize a slider (generate dots, set initial index)
+function initializeSlider(sliderId) {
+  const slides = document.querySelector(`#${sliderId}`).querySelectorAll('.slide');
+  const dotContainer = document.querySelector(`#${sliderId}`).querySelector('.dot-container');
+  
+  slideIndex[sliderId] = 1; // Start at the first slide (index 1)
+  
+  // Generate dots dynamically
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    dot.onclick = () => currentSlide(i + 1, sliderId);
+    dotContainer.appendChild(dot);
   }
-});
+  
+  showSlides(1, sliderId);
+}
 
-// Color customization
-const resume = document.getElementById("resume-preview");
-document.getElementById("text-color").addEventListener("input", e => {
-  resume.style.color = e.target.value;
-});
-document.getElementById("bg-color").addEventListener("input", e => {
-  resume.style.backgroundColor = e.target.value;
-});
+// Function to move to the next or previous slide
+window.plusSlides = function(n, sliderId) {
+  showSlides(slideIndex[sliderId] += n, sliderId);
+}
 
-// AI Summary (simulated)
-document.getElementById("generate-ai").addEventListener("click", () => {
-  const title = document.getElementById("title").value;
-  const skills = document.getElementById("skills").value;
-  document.getElementById("preview-objective").textContent =
-    `Motivated ${title} skilled in ${skills || "various technologies"}, eager to contribute to innovative projects and continuous learning.`;
-});
+// Function to jump to a specific slide using dots
+window.currentSlide = function(n, sliderId) {
+  showSlides(slideIndex[sliderId] = n, sliderId);
+}
 
-// PDF Download
-document.getElementById("download-pdf").addEventListener("click", () => {
-  const element = document.getElementById("resume-preview");
-  const opt = {
-    margin: 0.3,
-    filename: 'resume.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-  };
-  html2pdf().set(opt).from(element).save();
+// Core function to display the correct slide
+function showSlides(n, sliderId) {
+  let i;
+  const slides = document.querySelector(`#${sliderId}`).querySelectorAll('.slide');
+  const dots = document.querySelector(`#${sliderId}`).querySelectorAll('.dot');
+  
+  if (slides.length === 0) return;
+  
+  // Loop back to the start if we go past the last slide
+  if (n > slides.length) { slideIndex[sliderId] = 1 }
+  
+  // Loop to the end if we go before the first slide
+  if (n < 1) { slideIndex[sliderId] = slides.length }
+  
+  // Hide all slides
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  
+  // Remove the active class from all dots
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active-dot", "");
+  }
+  
+  // Display the current slide and mark the current dot as active
+  slides[slideIndex[sliderId] - 1].style.display = "block";
+  dots[slideIndex[sliderId] - 1].className += " active-dot";
+}
+
+// Initialize all sliders on the page once the document is ready
+document.addEventListener('DOMContentLoaded', () => {
+  initializeSlider('project-slider-1');
 });
